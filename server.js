@@ -14,8 +14,6 @@ app.get('/location', (request, response) => {
   try{
     const city = request.query.data;
     const locationData = fetchLatLong(city);
-
-    console.log(locationData);
     response.send(locationData);
   }
   catch(error){
@@ -27,8 +25,6 @@ app.get('/location', (request, response) => {
 app.get('/weather', (request, response) => {
   try{
     const weatherData = fetchWeather();
-
-    console.log(weatherData);
     response.send(weatherData);
   }
   catch(error){
@@ -41,13 +37,17 @@ app.get('/weather', (request, response) => {
 
 //error msg handling for status 404
 app.get('*',(request, response) => {
-  response.status(404).send('not found');
+  //response.status(404).send('not found');
+  const Error = {
+    status: 500,
+    responseText: 'Sorry, something went wrong'
+  };
+  response.send(Error);
 })
 
 //this function takes location data submitted from user query and instantiate a series of objects.
 function fetchLatLong(location){
   const geoData = require('./data/geo.json');
-  console.log(geoData);
   const locationObj = new Location(location, geoData);
   return locationObj;
 }
@@ -55,14 +55,14 @@ function fetchLatLong(location){
 function fetchWeather(){
   const weatherArr = [];
   const weaData = require('./data/darksky.json');
-  console.log(weaData);
   for(let i=0; i < weaData.daily.data.length; i++){
     let weatherObj = new Weather(weaData, i);
     weatherArr.push(weatherObj);
   }
-
   return weatherArr;
 }
+
+
 
 function Location(city, geoData){
   this.search_query = city;
@@ -73,7 +73,6 @@ function Location(city, geoData){
 
 function Weather(weaData, index){
   this.forecast = weaData.daily.data[index].summary;
-  //this.time = weaData.daily.data[index].time;
   let dateData = new Date(weaData.daily.data[index].time);
   this.time = dateData.toDateString();
 }
