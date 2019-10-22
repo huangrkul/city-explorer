@@ -41,6 +41,8 @@ This app will take user location inquery and output and map location as well as 
 == 1.0.0 ==
 - basic server completed and deployed on heroku.
 
+## Feature Tasks
+
 **Number and name of feature: Feature 0: Setting up Server**
 
 Estimate of time needed to complete: 30 min
