@@ -71,9 +71,24 @@ function Location(city, geoData){
 
 function Weather(weaData){
   this.forecast = weaData.summary;
-  let dateData = new Date(weaData.time);
+  let dateData = new Date(weaData.time * 1000);
   this.time = dateData.toDateString();
 }
 
 app.listen(PORT, () => console.log(`app is listening on port ${PORT}!`))
 
+
+/*
+app.get('/location', handleLocation)
+function handleLocation(request, response){
+  //code block
+}
+*/
+
+/*
+  superagent.get('absolute url')
+  .then(response from superagent => {
+    responseFromSuperAgent.body
+  })
+  .catch(console.error)
+*/
