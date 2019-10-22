@@ -62,8 +62,6 @@ function fetchWeather(){
   return weatherArr;
 }
 
-
-
 function Location(city, geoData){
   this.search_query = city;
   this.formatted_query = geoData.results[0].formatted_address;
