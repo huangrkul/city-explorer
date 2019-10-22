@@ -13,14 +13,8 @@ const PORT = process.env.PORT || 3001; //reading port 3000 from .env
 app.get('/location', (request, response) => {
   try{
     const city = request.query.data;
-    if(city === 'Lynwood'){
-      const locationData = fetchLatLong(city);
-  
-      console.log(locationData);
-      response.send(locationData);
-    } else {
-      response.status(500).send('Sorry, something went wrong');  
-    }
+    const locationData = fetchLatLong(city);
+    response.send(locationData);
   }
   catch(error){
     console.error(error);
@@ -31,8 +25,6 @@ app.get('/location', (request, response) => {
 app.get('/weather', (request, response) => {
   try{
     const weatherData = fetchWeather();
-
-    console.log(weatherData);
     response.send(weatherData);
   }
   catch(error){
@@ -45,14 +37,19 @@ app.get('/weather', (request, response) => {
 
 //error msg handling for status 404
 app.get('*',(request, response) => {
-  response.status(404).send('not found');
+  //response.status(404).send('not found');
+  const Error = {
+    status: 500,
+    responseText: 'Sorry, something went wrong'
+  };
+  response.send(Error);
 })
 
 //this function takes location data submitted from user query and instantiate a series of objects.
 function fetchLatLong(location){
   const geoData = require('./data/geo.json');
   const locationObj = new Location(location, geoData);
-  return locationObj;2
+  return locationObj;
 }
 
 function fetchWeather(){
@@ -62,9 +59,10 @@ function fetchWeather(){
     let weatherObj = new Weather(weaData, i);
     weatherArr.push(weatherObj);
   }
-
   return weatherArr;
 }
+
+
 
 function Location(city, geoData){
   this.search_query = city;
