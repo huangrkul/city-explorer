@@ -57,7 +57,7 @@ function fetchWeather(){
   const weaData = require('./data/darksky.json');
   console.log(weaData);
   for(let i=0; i < weaData.daily.data.length; i++){
-    let weatherObj = new Weather(weaData);
+    let weatherObj = new Weather(weaData, i);
     weatherArr.push(weatherObj);
   }
 
@@ -71,12 +71,12 @@ function Location(city, geoData){
   this.longitude = geoData.results[0].geometry.location.lng;
 }
 
-function Weather(weaData){
-  this.forecast = weaData.daily.data.summary;
-  let dateData = new Date(weaData.daily.data.time);
+function Weather(weaData, index){
+  this.forecast = weaData.daily.data[index].summary;
+  //this.time = weaData.daily.data[index].time;
+  let dateData = new Date(weaData.daily.data[index].time);
   this.time = dateData.toDateString();
 }
-
 
 app.listen(PORT, () => console.log(`app is listening on port ${PORT}!`))
 
