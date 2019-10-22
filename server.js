@@ -13,10 +13,14 @@ const PORT = process.env.PORT || 3001; //reading port 3000 from .env
 app.get('/location', (request, response) => {
   try{
     const city = request.query.data;
-    const locationData = fetchLatLong(city);
-
-    console.log(locationData);
-    response.send(locationData);
+    if(city === 'Lynwood'){
+      const locationData = fetchLatLong(city);
+  
+      console.log(locationData);
+      response.send(locationData);
+    } else {
+      response.status(500).send('Sorry, something went wrong');  
+    }
   }
   catch(error){
     console.error(error);
@@ -47,15 +51,13 @@ app.get('*',(request, response) => {
 //this function takes location data submitted from user query and instantiate a series of objects.
 function fetchLatLong(location){
   const geoData = require('./data/geo.json');
-  console.log(geoData);
   const locationObj = new Location(location, geoData);
-  return locationObj;
+  return locationObj;2
 }
 
 function fetchWeather(){
   const weatherArr = [];
   const weaData = require('./data/darksky.json');
-  console.log(weaData);
   for(let i=0; i < weaData.daily.data.length; i++){
     let weatherObj = new Weather(weaData, i);
     weatherArr.push(weatherObj);
@@ -73,7 +75,6 @@ function Location(city, geoData){
 
 function Weather(weaData, index){
   this.forecast = weaData.daily.data[index].summary;
-  //this.time = weaData.daily.data[index].time;
   let dateData = new Date(weaData.daily.data[index].time);
   this.time = dateData.toDateString();
 }
