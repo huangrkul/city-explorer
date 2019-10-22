@@ -1,6 +1,7 @@
 # City Explorer
 
 **Author**: Will Huang
+
 **Version**: 1.0.3 (increment the patch/fix version number if you make more commits past your first submission)
 
 ## Overview
