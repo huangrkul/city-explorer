@@ -55,14 +55,10 @@ function fetchLatLong(location){
 function fetchWeather(){
   const weatherArr = [];
   const weaData = require('./data/darksky.json');
-  // weaData.daily.data.forEach(prop => {
-  //   let weatherObj = new Weather(prop);
-  //   weatherArr.push(weatherObj);
-  // });
-  for(let i=0; i < weaData.daily.data.length; i++){
-    let weatherObj = new Weather(weaData, i);
+  weaData.daily.data.forEach(prop => {
+    let weatherObj = new Weather(prop);
     weatherArr.push(weatherObj);
-  }
+  });
   return weatherArr;
 }
 
@@ -73,14 +69,9 @@ function Location(city, geoData){
   this.longitude = geoData.results[0].geometry.location.lng;
 }
 
-// function Weather(weaData){
-//   this.forecast = weaData.summary;
-//   let dateData = new Date(weaData.time);
-//   this.time = dateData.toDateString();
-// }
-function Weather(weaData, index){
-  this.forecast = weaData.daily.data[index].summary;
-  let dateData = new Date(weaData.daily.data[index].time * 1000);
+function Weather(weaData){
+  this.forecast = weaData.summary;
+  let dateData = new Date(weaData.time);
   this.time = dateData.toDateString();
 }
 
