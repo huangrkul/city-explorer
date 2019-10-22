@@ -2,7 +2,7 @@
 
 **Author**: Will Huang
 
-**Version**: 1.0.3 (increment the patch/fix version number if you make more commits past your first submission)
+**Version**: 1.0.3
 
 ## Overview
 <!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for this class. (i.e. What's your problem domain?) -->
@@ -40,3 +40,43 @@ This app will take user location inquery and output and map location as well as 
 
 == 1.0.0 ==
 - basic server completed and deployed on heroku.
+
+**Number and name of feature: Feature 0: Setting up Server**
+
+Estimate of time needed to complete: 30 min
+
+Start time: 9:00pm
+
+Finish time: 9:15pm
+
+Actual time needed to complete: 15 min
+
+**Number and name of feature: Feature 1: Location Query**
+
+Estimate of time needed to complete: 30 min
+
+Start time: 9:10am
+
+Finish time: 9:25am
+
+Actual time needed to complete: 15 min
+
+**Number and name of feature: Feature 2: Weather Query**
+
+Estimate of time needed to complete: 1 hour
+
+Start time: 9:25am
+
+Finish time: 10:00am
+
+Actual time needed to complete: 35 min
+
+**Number and name of feature: Feature 3: Error Message**
+
+Estimate of time needed to complete: 30 min
+
+Start time: 10:00am
+
+Finish time: 10:30am
+
+Actual time needed to complete: 30 min
