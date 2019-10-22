@@ -24,6 +24,19 @@ app.get('/location', (request, response) => {
   }
 })
 
+app.get('/weather', (request, response) => {
+  try{
+    const weatherData = fetchWeather();
+
+    console.log(weatherData);
+    response.send(weatherData);
+  }
+  catch(error){
+    console.error(error);
+    response.status(500).send('server issue (500)');
+  }
+})
+
 //app.get('/', (request, response) => response.send('Hello World!'))
 
 //error msg handling for status 404
@@ -37,7 +50,18 @@ function fetchLatLong(location){
   console.log(geoData);
   const locationObj = new Location(location, geoData);
   return locationObj;
+}
 
+function fetchWeather(){
+  const weatherArr = [];
+  const weaData = require('./data/darksky.json');
+  console.log(weaData);
+  for(let i=0; i < weaData.daily.data.length; i++){
+    let weatherObj = new Weather(weaData);
+    weatherArr.push(weatherObj);
+  }
+
+  return weatherArr;
 }
 
 function Location(city, geoData){
@@ -45,6 +69,12 @@ function Location(city, geoData){
   this.formatted_query = geoData.results[0].formatted_address;
   this.latitude = geoData.results[0].geometry.location.lat;
   this.longitude = geoData.results[0].geometry.location.lng;
+}
+
+function Weather(weaData){
+  this.forecast = weaData.daily.data.summary;
+  let dateData = new Date(weaData.daily.data.time);
+  this.time = dateData.toDateString();
 }
 
 
