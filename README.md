@@ -27,6 +27,11 @@ This app will take user location inquery and output and map location as well as 
 ## Credits and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
 **Collaborated with Raven Delaney**
+== 1.0.4 ==
+- Refactored server.js so location and weather are taking data from actual API.
+- Navigator: Will Huang 
+- Driver: Raven Delaney
+
 == 1.0.3 ==
 - created an error object and output it when filepath isn't /weather or /location.
 
@@ -84,6 +89,9 @@ Finish time: 10:30am
 
 Actual time needed to complete: 30 min
 
+### Lab 7 1st Half:
+
+
 
 **Number and name of feature: Feature 1, day 2: Data Formatting**
 
@@ -117,6 +125,10 @@ Start time: 11:00am
 Finish time: 11:12am
 
 Actual time needed to complete: 12 minutes
+
+### Lab 7 2nd Half:
+- Navigator: Raven Delaney
+- Driver: Will Huang
 
 **Number and name of feature: Feature 4, day 2: EventBrite**
 
