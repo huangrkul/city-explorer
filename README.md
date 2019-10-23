@@ -27,6 +27,9 @@ This app will take user location inquery and output and map location as well as 
 ## Credits and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
 **Collaborated with Raven Delaney**
+== 1.0.6 ==
+- trail API implemented.
+
 == 1.0.5 ==
 - server issue with heroku fixed.  Adding header script to CORS issue. (contributed by Erin)
 
@@ -139,6 +142,6 @@ Estimate of time needed to complete: 1 hour
 
 Start time: 11:54am
 
-Finish time:
+Finish time: 12:30pm
 
-Actual time needed to complete: 
+Actual time needed to complete: 1 hour+
