@@ -4,23 +4,44 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
+const superagent = require('superagent');
 
 const app = express();
 app.use(cors());
 
 const PORT = process.env.PORT || 3001; //reading port 3000 from .env
 
-app.get('/location', (request, response) => {
-  try{
-    const city = request.query.data;
-    const locationData = fetchLatLong(city);
-    response.send(locationData);
+app.get('/location', handleLocation);
+
+let locales = {};
+
+function handleLocation (request, response){
+  const city = request.query.data;
+  const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${city}&key=${process.env.GEOCODE_API_KEY}`;
+
+  if( locales[url] ){
+    console.log('using cache');
+    response.send(locales[url]);
+  } else {
+    console.log('getting data from api');
+    superagent.get(url)
+      .then(resultsFromSuperagent => {
+        // console.log(resultsFromSuperagent.body.results[0].geometry);
+        const locationObj = new Location(city, resultsFromSuperagent.body.results[0]);
+
+        // store location in the in-memory location object cache
+        locales[url] = locationObj;
+
+        response.status(200).send(locationObj);
+      })
+      .catch ((error) => {
+        console.error(error);
+        response.status(500).send('Our bad, yo.');
+      })
   }
-  catch(error){
-    console.error(error);
-    response.status(500).send('server issue (500)');
-  }
-})
+}
+
+
 
 app.get('/weather', (request, response) => {
   try{
@@ -46,27 +67,27 @@ app.get('*',(request, response) => {
 })
 
 //this function takes location data submitted from user query and instantiate a series of objects.
-function fetchLatLong(location){
-  const geoData = require('./data/geo.json');
-  const locationObj = new Location(location, geoData);
-  return locationObj;
-}
+// function fetchLocation(location){
+//   const geoData = require('./data/geo.json');
+//   const locationObj = new Location(location, geoData);
+//   return locationObj;
+// }
 
 function fetchWeather(){
-  const weatherArr = [];
+  // const weatherArr = [];
   const weaData = require('./data/darksky.json');
-  weaData.daily.data.forEach(prop => {
+  const weatherArr = weaData.daily.data.map(prop => {
     let weatherObj = new Weather(prop);
-    weatherArr.push(weatherObj);
+    return weatherObj;
   });
   return weatherArr;
 }
 
 function Location(city, geoData){
   this.search_query = city;
-  this.formatted_query = geoData.results[0].formatted_address;
-  this.latitude = geoData.results[0].geometry.location.lat;
-  this.longitude = geoData.results[0].geometry.location.lng;
+  this.formatted_query = geoData.formatted_address;
+  this.latitude = geoData.geometry.location.lat;
+  this.longitude = geoData.geometry.location.lng;
 }
 
 function Weather(weaData){
