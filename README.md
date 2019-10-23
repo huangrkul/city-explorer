@@ -103,20 +103,20 @@ Estimate of time needed to complete:
 
 Start time: 10:25am
 
-Finish time: 
+Finish time: 11:00am
 
-Actual time needed to complete:  
+Actual time needed to complete:  35 minutes
 
 **Number and name of feature: Feature 3, day 2: Weather**
 
 Estimate of time needed to complete: 
+30 minutes
 
+Start time: 11:00am
 
-Start time: 
+Finish time: 11:12am
 
-Finish time: 
-
-Actual time needed to complete:  
+Actual time needed to complete: 12 minutes
 
 **Number and name of feature: Feature 4, day 2: EventBrite**
 
