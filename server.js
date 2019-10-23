@@ -92,7 +92,7 @@ function handleTrails(request, response){
       const trailsData = resultsFromSuperagent.body.trails.map(prop => {
         return new Trail(prop);
       })
-
+      console.log(trailsData);
       response.status(200).send(trailsData);
     })
     .catch ((error) => {
@@ -135,14 +135,12 @@ function Weather(weaData){
 }
 
 function Trail(trailData){
-  // "name": "Rattlesnake Ledge",
-  // "location": "Riverbend, Washington",
-  // "length": "4.3",
-  // "stars": "4.4",
-  // "star_votes": "84",
-  // "summary": "An extremely popular out-and-back hike to the viewpoint on Rattlesnake Ledge.",
-  // "trail_url": "https://www.hikingproject.com/trail/7021679/rattlesnake-ledge",
-  // "conditions": "Dry: The trail is clearly marked and well maintained.",
+  let regex1 = /^\S+/;
+  let regex2 = /\S+$/;
+  let date = trailData.conditionDate.match(regex1);
+  let time = trailData.conditionDate.match(regex2);
+
+
   // "condition_date": "2018-07-21",
   // "condition_time": "0:00:00 "
   this.name = trailData.name;
@@ -153,8 +151,8 @@ function Trail(trailData){
   this.summary = trailData.summary;
   this.trail_url = trailData.url;
   this.conditions = trailData.conditionStatus;
-  this.condition_date = trailData.conditionDate;
-  this.condition_time = trailData.conditionDate;
+  this.condition_date = date[0];
+  this.condition_time = time[0];
 }
 
 app.listen(PORT, () => console.log(`app is listening on port ${PORT}!`))
