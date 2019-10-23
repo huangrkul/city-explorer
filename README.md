@@ -27,6 +27,9 @@ This app will take user location inquery and output and map location as well as 
 ## Credits and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
 **Collaborated with Raven Delaney**
+== 1.0.5 ==
+- server issue with heroku fixed.  Adding header script to CORS issue. (contributed by Erin)
+
 == 1.0.4 ==
 - Refactored server.js so location and weather are taking data from actual API.
 - Navigator: Will Huang 
