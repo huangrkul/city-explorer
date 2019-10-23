@@ -27,6 +27,7 @@ const PORT = process.env.PORT || 3001; //reading port 3000 from .env
 
 app.get('/location', handleLocation);
 app.get('/weather', handleWeather);
+app.get('/trails', handleTrails);
 
 let locales = {};
 
@@ -79,6 +80,27 @@ function handleWeather(request, response){
     })
 }
 
+function handleTrails(request, response){
+  const locObj = request.query.data;
+
+  const url = `https://www.hikingproject.com/data/get-trails?lat=${locObj.latitude}&lon=${locObj.longitude}&key=${process.env.TRAIL_API_KEY}`;
+
+  superagent.get(url)
+    .then(resultsFromSuperagent => {
+      // console.log(resultsFromSuperagent.body);
+
+      const trailsData = resultsFromSuperagent.body.trails.map(prop => {
+        return new Trail(prop);
+      })
+
+      response.status(200).send(trailsData);
+    })
+    .catch ((error) => {
+      console.error(error);
+      response.status(500).send('Not happening. Sorry.');
+    })
+}
+
 //app.get('/', (request, response) => response.send('Hello World!'))
 
 //error msg handling for status 404
@@ -110,6 +132,29 @@ function Weather(weaData){
   this.forecast = weaData.summary;
   let dateData = new Date(weaData.time * 1000);
   this.time = dateData.toDateString();
+}
+
+function Trail(trailData){
+  // "name": "Rattlesnake Ledge",
+  // "location": "Riverbend, Washington",
+  // "length": "4.3",
+  // "stars": "4.4",
+  // "star_votes": "84",
+  // "summary": "An extremely popular out-and-back hike to the viewpoint on Rattlesnake Ledge.",
+  // "trail_url": "https://www.hikingproject.com/trail/7021679/rattlesnake-ledge",
+  // "conditions": "Dry: The trail is clearly marked and well maintained.",
+  // "condition_date": "2018-07-21",
+  // "condition_time": "0:00:00 "
+  this.name = trailData.name;
+  this.location = trailData.location;
+  this.length = trailData.length;
+  this.stars = trailData.stars;
+  this.star_votes = trailData.starVotes;
+  this.summary = trailData.summary;
+  this.trail_url = trailData.url;
+  this.conditions = trailData.conditionStatus;
+  this.condition_date = trailData.conditionDate;
+  this.condition_time = trailData.conditionDate;
 }
 
 app.listen(PORT, () => console.log(`app is listening on port ${PORT}!`))

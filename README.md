@@ -27,6 +27,9 @@ This app will take user location inquery and output and map location as well as 
 ## Credits and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
 **Collaborated with Raven Delaney**
+== 1.0.6 ==
+- trail API implemented.
+
 == 1.0.5 ==
 - server issue with heroku fixed.  Adding header script to CORS issue. (contributed by Erin)
 
@@ -133,12 +136,12 @@ Actual time needed to complete: 12 minutes
 - Navigator: Raven Delaney
 - Driver: Will Huang
 
-**Number and name of feature: Feature 4, day 2: EventBrite**
+**Number and name of feature: Feature 4, day 2: Trail**
 
-Estimate of time needed to complete: 
+Estimate of time needed to complete: 1 hour
 
-Start time: 
+Start time: 11:54am
 
-Finish time:
+Finish time: 12:30pm
 
-Actual time needed to complete: 
+Actual time needed to complete: 1 hour+
