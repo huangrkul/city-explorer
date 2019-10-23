@@ -9,14 +9,14 @@ const superagent = require('superagent');
 const app = express();
 app.use(cors());
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
   res.header(
-    "Access-Control-Allow-Headers",
-    "Content-Type, Authorization, Content-Length, X-Requested-With"
+    'Access-Control-Allow-Headers',
+    'Content-Type, Authorization, Content-Length, X-Requested-With'
   );
   // intercept OPTIONS method
-  if ("OPTIONS" == req.method) {
+  if ('OPTIONS' === req.method) {
     res.send(200);
   } else {
     next();
@@ -114,13 +114,6 @@ app.get('*',(request, response) => {
 })
 
 //this function takes location data submitted from user query and instantiate a series of objects.
-// function fetchLocation(location){
-//   const geoData = require('./data/geo.json');
-//   const locationObj = new Location(location, geoData);
-//   return locationObj;
-// }
-
-
 function Location(city, geoData){
   this.search_query = city;
   this.formatted_query = geoData.formatted_address;
@@ -157,21 +150,6 @@ function Trail(trailData){
 
 app.listen(PORT, () => console.log(`app is listening on port ${PORT}!`))
 
-
-/*
-app.get('/location', handleLocation)
-function handleLocation(request, response){
-  //code block
-}
-*/
-
-/*
-  superagent.get('absolute url')
-  .then(response from superagent => {
-    responseFromSuperAgent.body
-  })
-  .catch(console.error)
-*/
 
 /*in-memeory-cache
 //if locations doesn't have it, fetch it, and store it.
