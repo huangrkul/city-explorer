@@ -92,3 +92,8 @@ function handleLocation(request, response){
   })
   .catch(console.error)
 */
+
+/*in-memeory-cache
+//if locations doesn't have it, fetch it, and store it.
+let locations = {};
+/////////////////*/
