@@ -12,6 +12,7 @@ app.use(cors());
 const PORT = process.env.PORT || 3001; //reading port 3000 from .env
 
 app.get('/location', handleLocation);
+app.get('/weather', handleWeather);
 
 let locales = {};
 
@@ -43,16 +44,26 @@ function handleLocation (request, response){
 
 
 
-app.get('/weather', (request, response) => {
-  try{
-    const weatherData = fetchWeather();
-    response.send(weatherData);
-  }
-  catch(error){
-    console.error(error);
-    response.status(500).send('server issue (500)');
-  }
-})
+function handleWeather(request, response){
+  const locObj = request.query.data;
+
+  const url = `https://api.darksky.net/forecast/${process.env.WEATHER_API_KEY}/${locObj.latitude},${locObj.longitude}`;
+
+  superagent.get(url)
+    .then(resultsFromSuperagent => {
+      // console.log(resultsFromSuperagent.body);
+
+      const weeklyWeather = resultsFromSuperagent.body.daily.data.map(day => {
+        return new Weather(day);
+      })
+
+      response.status(200).send(weeklyWeather);
+    })
+    .catch ((error) => {
+      console.error(error);
+      response.status(500).send('Not happening. Sorry.');
+    })
+}
 
 //app.get('/', (request, response) => response.send('Hello World!'))
 
@@ -73,15 +84,6 @@ app.get('*',(request, response) => {
 //   return locationObj;
 // }
 
-function fetchWeather(){
-  // const weatherArr = [];
-  const weaData = require('./data/darksky.json');
-  const weatherArr = weaData.daily.data.map(prop => {
-    let weatherObj = new Weather(prop);
-    return weatherObj;
-  });
-  return weatherArr;
-}
 
 function Location(city, geoData){
   this.search_query = city;
