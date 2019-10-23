@@ -26,6 +26,7 @@ This app will take user location inquery and output and map location as well as 
 
 ## Credits and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
+**Collaborated with Raven Delaney**
 == 1.0.3 ==
 - created an error object and output it when filepath isn't /weather or /location.
 
@@ -82,3 +83,47 @@ Start time: 10:00am
 Finish time: 10:30am
 
 Actual time needed to complete: 30 min
+
+
+**Number and name of feature: Feature 1, day 2: Data Formatting**
+
+Estimate of time needed to complete: 
+20 minutes
+
+Start time: 9:20, paused at 9:30, resumed at 10:00am
+
+Finish time: 10:10am
+
+Actual time needed to complete:  20 minutes
+
+**Number and name of feature: Feature 2, day 2: Locations**
+
+Estimate of time needed to complete: 
+1 hour
+
+Start time: 10:25am
+
+Finish time: 
+
+Actual time needed to complete:  
+
+**Number and name of feature: Feature 3, day 2: Weather**
+
+Estimate of time needed to complete: 
+
+
+Start time: 
+
+Finish time: 
+
+Actual time needed to complete:  
+
+**Number and name of feature: Feature 4, day 2: EventBrite**
+
+Estimate of time needed to complete: 
+
+Start time: 
+
+Finish time:
+
+Actual time needed to complete: 
