@@ -17,17 +17,17 @@ let locales = {};
 
 function handleLocation (request, response){
   const city = request.query.data;
-  const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${process.env.GEOCODE_API_KEY}`;
+  const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${city}&key=${process.env.GEOCODE_API_KEY}`;
 
   if( locales[url] ){
     console.log('using cache');
-    response.send(locations[url]);
+    response.send(locales[url]);
   } else {
     console.log('getting data from api');
     superagent.get(url)
       .then(resultsFromSuperagent => {
         // console.log(resultsFromSuperagent.body.results[0].geometry);
-        const locationObj = new Location(location, resultsFromSuperagent.body.results[0]);
+        const locationObj = new Location(city, resultsFromSuperagent.body.results[0]);
 
         // store location in the in-memory location object cache
         locales[url] = locationObj;
@@ -38,9 +38,9 @@ function handleLocation (request, response){
         console.error(error);
         response.status(500).send('Our bad, yo.');
       })
-
+  }
 }
- 
+
 
 
 app.get('/weather', (request, response) => {
@@ -67,11 +67,11 @@ app.get('*',(request, response) => {
 })
 
 //this function takes location data submitted from user query and instantiate a series of objects.
-function fetchLatLong(location){
-  const geoData = require('./data/geo.json');
-  const locationObj = new Location(location, geoData);
-  return locationObj;
-}
+// function fetchLocation(location){
+//   const geoData = require('./data/geo.json');
+//   const locationObj = new Location(location, geoData);
+//   return locationObj;
+// }
 
 function fetchWeather(){
   // const weatherArr = [];
