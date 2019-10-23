@@ -53,11 +53,11 @@ function fetchLatLong(location){
 }
 
 function fetchWeather(){
-  const weatherArr = [];
+  // const weatherArr = [];
   const weaData = require('./data/darksky.json');
-  weaData.daily.data.forEach(prop => {
+  const weatherArr = weaData.daily.data.map(prop => {
     let weatherObj = new Weather(prop);
-    weatherArr.push(weatherObj);
+    return weatherObj;
   });
   return weatherArr;
 }
