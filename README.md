@@ -133,11 +133,11 @@ Actual time needed to complete: 12 minutes
 - Navigator: Raven Delaney
 - Driver: Will Huang
 
-**Number and name of feature: Feature 4, day 2: EventBrite**
+**Number and name of feature: Feature 4, day 2: Trail**
 
-Estimate of time needed to complete: 
+Estimate of time needed to complete: 1 hour
 
-Start time: 
+Start time: 11:54am
 
 Finish time:
 
