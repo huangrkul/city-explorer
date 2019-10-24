@@ -1,6 +1,8 @@
 # City Explorer
 
-**Author**: Will Huang
+**Author**: Will Huang, Raven Delaney (10/23)
+
+Raven Delaney, Rosalyn Johnson, James Bond (10/24)
 
 **Version**: 1.0.3
 
@@ -26,7 +28,6 @@ This app will take user location inquery and output and map location as well as 
 
 ## Credits and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
-**Collaborated with Raven Delaney**
 == 1.0.6 ==
 - trail API implemented.
 
@@ -145,3 +146,36 @@ Start time: 11:54am
 Finish time: 12:30pm
 
 Actual time needed to complete: 1 hour+
+
+
+## Lab 8
+**Number and name of feature: Feature 1, day 3: Database**
+
+Estimate of time needed to complete: 80 minutes
+
+Start time: 9:20am
+
+Finish time: 10:05
+
+Actual time needed to complete: 45 minutes
+(Some set up done during class demo)
+
+**Number and name of feature: Feature 2, day 3: Server**
+
+Estimate of time needed to complete: 
+
+Start time:
+
+Finish time:
+
+Actual time needed to complete:
+
+**Number and name of feature: Feature 3, day 3: Deploy**
+
+Estimate of time needed to complete: 
+
+Start time:
+
+Finish time:
+
+Actual time needed to complete:

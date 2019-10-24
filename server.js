@@ -5,6 +5,7 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 const superagent = require('superagent');
+const pg = require('pg');
 
 const app = express();
 app.use(cors());
@@ -24,10 +25,14 @@ app.use(function(req, res, next) {
 });
 
 const PORT = process.env.PORT || 3001; //reading port 3000 from .env
+const client = new pg.Client(process.env.DATABASE_URL);
+client.on('error', err => console.error(err));
+
 
 app.get('/location', handleLocation);
 app.get('/weather', handleWeather);
 app.get('/trails', handleTrails);
+app.get('/add', handleAdd)
 
 let locales = {};
 
@@ -103,6 +108,13 @@ function handleTrails(request, response){
 
 //app.get('/', (request, response) => response.send('Hello World!'))
 
+function handleAdd(request, response) => {
+  let city = request.query.city;
+  let 
+}
+
+
+
 //error msg handling for status 404
 app.get('*',(request, response) => {
   //response.status(404).send('not found');
@@ -148,8 +160,10 @@ function Trail(trailData){
   this.condition_time = time[0];
 }
 
-app.listen(PORT, () => console.log(`app is listening on port ${PORT}!`))
-
+client.connect()
+  .then(() =>{
+    app.listen(PORT, () => console.log(`app is listening on port ${PORT}!`))
+  });
 
 /*in-memeory-cache
 //if locations doesn't have it, fetch it, and store it.
