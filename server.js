@@ -8,20 +8,20 @@ const superagent = require('superagent');
 
 const app = express();
 app.use(cors());
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Content-Type, Authorization, Content-Length, X-Requested-With"
-  );
-  // intercept OPTIONS method
-  if ("OPTIONS" == req.method) {
-    res.send(200);
-  } else {
-    next();
-  }
-});
+// app.use(function(req, res, next) {
+//   res.header('Access-Control-Allow-Origin', '*');
+//   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+//   res.header(
+//     'Access-Control-Allow-Headers',
+//     'Content-Type, Authorization, Content-Length, X-Requested-With'
+//   );
+//   // intercept OPTIONS method
+//   if ('OPTIONS' === req.method) {
+//     res.send(200);
+//   } else {
+//     next();
+//   }
+// });
 
 const PORT = process.env.PORT || 3001; //reading port 3000 from .env
 
@@ -35,18 +35,18 @@ function handleLocation (request, response){
   const city = request.query.data;
   const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${city}&key=${process.env.GEOCODE_API_KEY}`;
 
-  if( locales[url] ){
+  if(locales[url]){
     console.log('using cache');
     response.send(locales[url]);
   } else {
     console.log('getting data from api');
     superagent.get(url)
       .then(resultsFromSuperagent => {
-        // console.log(resultsFromSuperagent.body.results[0].geometry);
         const locationObj = new Location(city, resultsFromSuperagent.body.results[0]);
 
         // store location in the in-memory location object cache
         locales[url] = locationObj;
+        console.log(locales);
 
         response.status(200).send(locationObj);
       })
@@ -57,8 +57,6 @@ function handleLocation (request, response){
   }
 }
 
-
-
 function handleWeather(request, response){
   const locObj = request.query.data;
 
@@ -66,7 +64,6 @@ function handleWeather(request, response){
 
   superagent.get(url)
     .then(resultsFromSuperagent => {
-      // console.log(resultsFromSuperagent.body);
 
       const weeklyWeather = resultsFromSuperagent.body.daily.data.map(day => {
         return new Weather(day);
@@ -87,12 +84,10 @@ function handleTrails(request, response){
 
   superagent.get(url)
     .then(resultsFromSuperagent => {
-      // console.log(resultsFromSuperagent.body);
 
       const trailsData = resultsFromSuperagent.body.trails.map(prop => {
         return new Trail(prop);
       })
-      console.log(trailsData);
       response.status(200).send(trailsData);
     })
     .catch ((error) => {
@@ -100,9 +95,6 @@ function handleTrails(request, response){
       response.status(500).send('Not happening. Sorry.');
     })
 }
-
-//app.get('/', (request, response) => response.send('Hello World!'))
-
 //error msg handling for status 404
 app.get('*',(request, response) => {
   //response.status(404).send('not found');
@@ -112,13 +104,6 @@ app.get('*',(request, response) => {
   };
   response.send(Error);
 })
-
-//this function takes location data submitted from user query and instantiate a series of objects.
-// function fetchLocation(location){
-//   const geoData = require('./data/geo.json');
-//   const locationObj = new Location(location, geoData);
-//   return locationObj;
-// }
 
 
 function Location(city, geoData){
@@ -140,9 +125,6 @@ function Trail(trailData){
   let date = trailData.conditionDate.match(regex1);
   let time = trailData.conditionDate.match(regex2);
 
-
-  // "condition_date": "2018-07-21",
-  // "condition_time": "0:00:00 "
   this.name = trailData.name;
   this.location = trailData.location;
   this.length = trailData.length;
@@ -158,22 +140,16 @@ function Trail(trailData){
 app.listen(PORT, () => console.log(`app is listening on port ${PORT}!`))
 
 
-/*
-app.get('/location', handleLocation)
-function handleLocation(request, response){
-  //code block
-}
-*/
-
-/*
-  superagent.get('absolute url')
-  .then(response from superagent => {
-    responseFromSuperAgent.body
-  })
-  .catch(console.error)
-*/
-
 /*in-memeory-cache
 //if locations doesn't have it, fetch it, and store it.
 let locations = {};
 /////////////////*/
+
+
+//promise to make sure server is connected to database before listening
+/*
+client.connect()
+  .then(() => {
+    app.listen(PORT, () => console.log(`app is listening on port ${PORT}!`))
+  })
+*/
