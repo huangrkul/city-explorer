@@ -73,7 +73,7 @@ function Location(city, geoData){
 
 function Weather(weaData, index){
   this.forecast = weaData.daily.data[index].summary;
-  let dateData = new Date(weaData.daily.data[index].time);
+  let dateData = new Date(weaData.daily.data[index].time * 1000);
   this.time = dateData.toDateString();
 }
 
